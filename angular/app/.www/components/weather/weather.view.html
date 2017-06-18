@@ -1,0 +1,26 @@
+<div layout="row" layout-align="center center" flex="100">
+    <div class="md-whiteframe-z2" flex="" flex-gt-sm="40">
+        <md-toolbar class="site-toolbar site-center">
+            <h1 class="md-headline">{{ "WEATHER" | translate }}</h1>
+        </md-toolbar>
+        <md-content class="site-center" md-theme="dark" layout="column" layout-padding=""><span>{{ "WEATHER_TEXT" | translate }}</span></md-content>
+        <md-content class="site-pad-left site-pad-right" flex="" layout="column">
+            <form name="zipForm" ng-model-options="{ debounce: 250 }">
+                <div layout="row">
+                    <md-input-container class="site-no-margin-bottom" flex=""><label>{{ "ZIP_CODE" | translate }}</label><input class="md-headline site-center" name="zip" ng-model="vm.zip" ng-change="vm.resetNotValid()" ng-pattern="vm.zipRegex" required="" />
+                        <div ng-messages="zipForm.zip.$error" multiple="multiple"
+                            md-auto-hide="false">
+                            <div ng-message="required">{{ "ERROR_REQUIRED" | translate }}</div>
+                            <div ng-message="pattern">{{ "ERROR_PATTERN" | translate }}</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-align="center center">
+                    <md-button class="md-primary md-raised" md-theme="buttons" ng-click="vm.getItAll(vm.zip)" ng-disabled="!zipForm.$valid">{{ "CHECK" | translate }}</md-button>
+                </div>
+            </form>
+        </md-content>
+        <md-progress-linear class="site-blue" md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
+        <md-content class="site-center" layout="column" ng-show="vm.hasWeather" layout-padding=""><span>It's currently {{ vm.weather.temperature }}&#8457; in {{ vm.weather.cityName }}. The timezone for the area is {{ vm.weather.timezone }} and the elevation is {{ vm.weather.elevation }} meters.</span></md-content>
+    </div>
+</div>

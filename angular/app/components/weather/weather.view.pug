@@ -1,0 +1,22 @@
+div(layout="row", layout-align="center center", flex="100")
+    .md-whiteframe-z2(flex="", flex-gt-sm="40")
+        md-toolbar.site-toolbar.site-center
+            h1.md-headline {{ "WEATHER" | translate }}
+        md-content.site-center(md-theme="dark", layout="column", layout-padding="")
+            span {{ "WEATHER_TEXT" | translate }}
+        md-content.site-pad-left.site-pad-right(flex="", layout="column")
+            form(name="zipForm", ng-model-options="{ debounce: 250 }")
+                div(layout="row")
+                    md-input-container.site-no-margin-bottom(flex="")
+                        label {{ "ZIP_CODE" | translate }}
+                        input.md-headline.site-center(name="zip", ng-model="vm.zip", ng-change="vm.resetNotValid()", ng-pattern="vm.zipRegex", required="")
+                        div(ng-messages="zipForm.zip.$error" multiple md-auto-hide="false")
+                            div(ng-message="required")
+                                | {{ "ERROR_REQUIRED" | translate }}
+                            div(ng-message="pattern")
+                                | {{ "ERROR_PATTERN" | translate }}
+                div(layout="row", layout-align="center center")
+                    md-button.md-primary.md-raised(md-theme="buttons", ng-click="vm.getItAll(vm.zip)", ng-disabled="!zipForm.$valid") {{ "CHECK" | translate }}
+        md-progress-linear.site-blue(md-mode="indeterminate", ng-show="vm.loading")
+        md-content.site-center(layout="column", ng-show="vm.hasWeather", layout-padding="")
+            span It's currently {{ vm.weather.temperature }}&#8457; in {{ vm.weather.cityName }}. The timezone for the area is {{ vm.weather.timezone }} and the elevation is {{ vm.weather.elevation }} meters.
