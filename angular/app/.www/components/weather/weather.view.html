@@ -7,9 +7,9 @@
         <md-content class="site-pad-left site-pad-right" flex="" layout="column">
             <form name="zipForm" ng-model-options="{ debounce: 250 }">
                 <div layout="row">
-                    <md-input-container class="site-no-margin-bottom" flex=""><label>{{ "ZIP_CODE" | translate }}</label><input class="md-headline site-center" name="zip" ng-model="vm.zip" ng-change="vm.resetNotValid()" ng-pattern="vm.zipRegex" required="" />
-                        <div ng-messages="zipForm.zip.$error" multiple="multiple"
-                            md-auto-hide="false">
+                    <md-input-container class="site-no-margin-bottom" flex=""><label>{{ "ZIP_CODE" | translate }}</label><input class="md-headline site-center" name="zip" ng-model="vm.zip" ng-change="vm.resetNotValid()" ng-keyup="$event.keyCode === 13 &amp;&amp; zipForm.$valid &amp;&amp; vm.getItAll(vm.zip)"
+                            ng-pattern="vm.zipRegex" required="" />
+                        <div ng-messages="zipForm.zip.$error" multiple="multiple" md-auto-hide="false">
                             <div ng-message="required">{{ "ERROR_REQUIRED" | translate }}</div>
                             <div ng-message="pattern">{{ "ERROR_PATTERN" | translate }}</div>
                         </div>

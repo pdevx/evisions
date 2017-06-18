@@ -9,7 +9,7 @@ div(layout="row", layout-align="center center", flex="100")
                 div(layout="row")
                     md-input-container.site-no-margin-bottom(flex="")
                         label {{ "ZIP_CODE" | translate }}
-                        input.md-headline.site-center(name="zip", ng-model="vm.zip", ng-change="vm.resetNotValid()", ng-pattern="vm.zipRegex", required="")
+                        input.md-headline.site-center(name="zip", ng-model="vm.zip", ng-change="vm.resetNotValid()", ng-keyup="$event.keyCode === 13 && zipForm.$valid && vm.getItAll(vm.zip)", ng-pattern="vm.zipRegex", required="")
                         div(ng-messages="zipForm.zip.$error" multiple md-auto-hide="false")
                             div(ng-message="required")
                                 | {{ "ERROR_REQUIRED" | translate }}
