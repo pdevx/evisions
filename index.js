@@ -77,8 +77,20 @@ app.get('/elevation', function (req, res) {
     });
 });
 
-app.post('/zip', function (req, res) {
-
+app.get('/location', function (req, res) {
+  https.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + req.query.lat + ',' + req.query.lon + '&sensor=true&key=AIzaSyBwImGzkGUEitQ2q0nK4QiGdJwrcsqsemY', function (response) {
+  var bodyChunks = [];
+    response.on('data', function (chunk) {
+      bodyChunks.push(chunk);
+    }).on('end', function () {
+      var body = Buffer.concat(bodyChunks);
+      console.log('BODY: ' + body);
+      res.send(body);
+    })
+  })
+    .on('error', function (err) {
+      console.log(err);
+    });
 });
 
 app.listen(app.get('port'), function () {

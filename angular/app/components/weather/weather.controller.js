@@ -99,8 +99,8 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         vm.loading = true;
         navigator.geolocation.getCurrentPosition(function (pos) {
             console.log(pos);
-            $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.coords.latitude + ',' + pos.coords.longitude + '&sensor=true').then(function onSuccess(res) {
-                console.log(res.data.results);
+            $http.get('/location?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude).then(function onSuccess(res) {
+                console.log(res);
                 var addressParts = res.data.results;
                 for (var i = 0; i < addressParts.length; i++) {
                     if (addressParts[i].types[0] === "postal_code") {
