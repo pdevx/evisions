@@ -18,6 +18,12 @@
     fill: #424242 !important;
 }
 
+.site-absolute-button {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
 .site-toolbar {
     padding: 0 1em;
 }

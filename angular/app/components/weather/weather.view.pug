@@ -15,7 +15,7 @@ div(layout="row", layout-align="center center", flex="100")
                                 | {{ "ERROR_REQUIRED" | translate }}
                             div(ng-message="pattern")
                                 | {{ "ERROR_PATTERN" | translate }}
-                    div(layout="column", layout-align="center", ng-show="vm.hasLocation")
+                    .site-absolute-button(layout="column", layout-align="center", ng-show="vm.hasLocation")
                         md-button.md-icon-button.site-no-margin.site-no-pad(ng-click="vm.getLocation()")
                             md-icon.material-icons(md-font-icon="my_location")
                                 | my_location
