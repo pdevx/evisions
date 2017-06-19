@@ -8,6 +8,10 @@ weatherController.controller('weatherController', function($scope, $http, $q, $f
     vm.loading = false;
     vm.zipRegex = /^(\d{5})?$/;
 
+    if (navigator.geolocation) {
+        vm.hasLocation = true;
+    }
+
     function convertTemp(K, measurement) {
         var newTemp;
         if (measurement === "F") {
@@ -65,17 +69,6 @@ weatherController.controller('weatherController', function($scope, $http, $q, $f
         return deferred.promise;
     };
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(pos) {
-                console.log(pos);
-                // $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.coords.latitude + ',' + pos.coords.longitude + '&sensor=true').then(function (res) {
-                //     console.log(res.data);
-                // });
-            });
-        }
-    }
-
     function showInvalid(ev) {
         $mdDialog.show(
             $mdDialog.alert()
@@ -88,6 +81,42 @@ weatherController.controller('weatherController', function($scope, $http, $q, $f
             .targetEvent(ev)
         );
     };
+
+    function showNoLocation(ev) {
+        $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .clickOutsideToClose(true)
+            .title($filter('translate')('NO_LOCATION_TITLE'))
+            .textContent($filter('translate')('NO_LOCATION_TEXT'))
+            .ariaLabel('Alert No Location')
+            .ok($filter('translate')('OK'))
+            .targetEvent(ev)
+        );
+    };
+
+    vm.getLocation = function() {
+        vm.loading = true;
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            console.log(pos);
+            $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.coords.latitude + ',' + pos.coords.longitude + '&sensor=true').then(function onSuccess(res) {
+                console.log(res.data.results);
+                var addressParts = res.data.results;
+                for (var i = 0; i < addressParts.length; i++) {
+                    if (addressParts[i].types[0] === "postal_code") {
+                        vm.zip = addressParts[i].address_components[0].short_name;
+                        console.log(vm.zip);
+                        break;
+                    }
+                }
+                vm.getItAll(vm.zip);
+            }, function onError(err) {
+                console.log(err);
+                vm.loading = false;
+                showNoLocation();
+            });
+        });
+    }
 
     vm.getItAll = function(zip) {
         vm.loading = true;

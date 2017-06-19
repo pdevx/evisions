@@ -15,8 +15,12 @@ div(layout="row", layout-align="center center", flex="100")
                                 | {{ "ERROR_REQUIRED" | translate }}
                             div(ng-message="pattern")
                                 | {{ "ERROR_PATTERN" | translate }}
+                    div(layout="column", layout-align="center", ng-show="vm.hasLocation")
+                        md-button.md-icon-button.site-no-margin.site-no-pad(ng-click="vm.getLocation()")
+                            md-icon.material-icons(md-font-icon="my_location")
+                                | my_location
                 div(layout="row", layout-align="center center")
                     md-button.md-primary.md-raised(md-theme="buttons", ng-click="vm.getItAll(vm.zip)", ng-disabled="!zipForm.$valid") {{ "CHECK" | translate }}
         md-progress-linear.site-blue(md-mode="indeterminate", ng-show="vm.loading")
         md-content.site-center(layout="column", ng-show="vm.hasWeather", layout-padding="")
-            span It's currently {{ vm.weather.temperature }}&#8457; in {{ vm.weather.cityName }}. The timezone for the area is {{ vm.weather.timezone }} and the elevation is {{ vm.weather.elevation }} meters.
+            span.md-headline It's currently {{ vm.weather.temperature }}&#8457; in {{ vm.weather.cityName }}. The timezone for the area is {{ vm.weather.timezone }} and the elevation is {{ vm.weather.elevation }} meters.

@@ -14,6 +14,11 @@
                             <div ng-message="pattern">{{ "ERROR_PATTERN" | translate }}</div>
                         </div>
                     </md-input-container>
+                    <div layout="column" layout-align="center" ng-show="vm.hasLocation">
+                        <md-button class="md-icon-button site-no-margin site-no-pad" ng-click="vm.getLocation()">
+                            <md-icon class="material-icons" md-font-icon="my_location">my_location</md-icon>
+                        </md-button>
+                    </div>
                 </div>
                 <div layout="row" layout-align="center center">
                     <md-button class="md-primary md-raised" md-theme="buttons" ng-click="vm.getItAll(vm.zip)" ng-disabled="!zipForm.$valid">{{ "CHECK" | translate }}</md-button>
@@ -21,6 +26,6 @@
             </form>
         </md-content>
         <md-progress-linear class="site-blue" md-mode="indeterminate" ng-show="vm.loading"></md-progress-linear>
-        <md-content class="site-center" layout="column" ng-show="vm.hasWeather" layout-padding=""><span>It's currently {{ vm.weather.temperature }}&#8457; in {{ vm.weather.cityName }}. The timezone for the area is {{ vm.weather.timezone }} and the elevation is {{ vm.weather.elevation }} meters.</span></md-content>
+        <md-content class="site-center" layout="column" ng-show="vm.hasWeather" layout-padding=""><span class="md-headline">It's currently {{ vm.weather.temperature }}&#8457; in {{ vm.weather.cityName }}. The timezone for the area is {{ vm.weather.timezone }} and the elevation is {{ vm.weather.elevation }} meters.</span></md-content>
     </div>
 </div>
