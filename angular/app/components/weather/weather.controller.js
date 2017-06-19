@@ -97,6 +97,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
 
     vm.getLocation = function () {
         vm.loading = true;
+        vm.hasWeather = false;
         navigator.geolocation.getCurrentPosition(function (pos) {
             console.log(pos);
             $http.get('/location?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude).then(function onSuccess(res) {
@@ -120,6 +121,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
 
     vm.getItAll = function (zip) {
         vm.loading = true;
+        vm.hasWeather = false;
         getWeather(zip).then(function onSuccess(data) {
             console.log(data);
             if (data.cod === "404" || data.cod === 404) {
