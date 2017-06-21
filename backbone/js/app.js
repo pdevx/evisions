@@ -17,7 +17,7 @@ function convertElevation(K, measurement) {
         newTemp = K - 273.15;
     }
     newTemp = Math.round(newTemp);
-    return newTemp;
+    return newTemp; 
 };
 
 function getTimezone(lat, lon) {
