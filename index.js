@@ -17,8 +17,6 @@ app.use(express.static(__dirname));
 
 app.use('/angular', express.static(__dirname + '/angular/app/.www/'));
 
-app.use('/backbone', express.static(__dirname + '/backbone'));
-
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: __dirname });
 });
