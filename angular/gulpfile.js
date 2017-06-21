@@ -58,7 +58,8 @@ gulp.task('build', function(done) {
 // Build the application in our development environment and start a local dev server with a file watch to handle automated builds, sass and pug compilation, front-end dependencies, file clean-up, etc. - http://localhost:3000
 gulp.task('serve', ['build'], function() {
     browserSync.init({
-        server: './app/.www/'
+        server: './app/.www/',
+        port: 4000
     });
     gulp.watch('./app/components/**/*.js', ['watch:js']);
     gulp.watch('./app/components/**/*.pug', ['watch:pug']);

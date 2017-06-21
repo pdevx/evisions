@@ -71,15 +71,14 @@ section, footer, header, aside{
     text-align: center;
 }
 
-#total{
+#output{
 	font-size:24px;
-	text-align:right;
+	text-align:center;
 	width:570px;
 	margin:30px auto 0;
-	padding-right:30px;
 }
 
-#total span{
+#output span{
 	display:inline-block;
 	min-width:70px;
 }
@@ -104,4 +103,9 @@ section, footer, header, aside{
 
 #check:hover{
 	opacity: 0.9;
+}
+
+.center {
+	font-size:20px;
+	text-align:center;
 }

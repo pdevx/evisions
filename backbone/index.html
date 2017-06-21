@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Evisions Code Challenge</title>
+    <title>Backbone - Evisions Code Challenge</title>
 
     <!-- Google web fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -12,22 +12,26 @@
 
 </head>
 
-<body>
-
-    <form id="main" method="post" action="/zip">
+<body id="app">
+    <div id="main">
         <h1>How's the weather?</h1>
+        <p class="center">What's the weather like in your area? Enter your zip code below to find out.</p>
+        <form name="zipForm">
+            <input type="text" id="zip" name="zip"/>
 
-        <input type="text" id="zip" name="zip" />
-
-        <input type="submit" id="check" value="Check" />
-    </form>
+            <div id="output">
+                <span></span>
+            </div>
+            <input id="check" value="Check" />
+        </form>
+    </div>
 
     <!-- JavaScript Includes -->
-    <script src="/backbone/lib/jquery.min.js"></script>
-    <script src="/backbone/lib/underscore-min.js"></script>
-    <script src="/backbone/lib/backbone-min.js"></script>
+    <script src="/backbone/js/vendor/jquery.min.js"></script>
+    <script src="/backbone/js/vendor/underscore-min.js"></script>
+    <script src="/backbone/js/vendor/backbone-min.js"></script>
 
-    <script src="/backbone/js/app.js"></script>
+    <script src="/backbone/js/App.js"></script>
 
 </body>
 

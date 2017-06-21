@@ -23,17 +23,6 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         return newTemp;
     };
 
-    function convertElevation(K, measurement) {
-        var newTemp;
-        if (measurement === "F") {
-            newTemp = ((K - 273.15) * 1.8) + 32;
-        } else if (measurement === "C") {
-            newTemp = K - 273.15;
-        }
-        newTemp = Math.round(newTemp);
-        return newTemp;
-    };
-
     function getWeather(zip) {
         var deferred = $q.defer();
         $http.get('/weather?zip=' + zip).then(function onSuccess(res) {
@@ -142,8 +131,8 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
                 $q.all().then(function onSuccess(data) {
                     vm.loading = false;
                     vm.hasWeather = true;
-                }, function onError() {
-
+                }, function onError(err) {
+                    console.log(err);
                 });
             }
         }, function onError(err) {
