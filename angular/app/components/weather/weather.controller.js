@@ -8,10 +8,12 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
     vm.loading = false;
     vm.zipRegex = /^(\d{5})?$/;
 
+    // Check for geolocation capability
     if (navigator.geolocation) {
         vm.hasLocation = true;
     }
 
+    // Convert Kelvin to Fahrenheit or Celsius
     function convertTemp(K, measurement) {
         var newTemp;
         if (measurement === "F") {
@@ -23,6 +25,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         return newTemp;
     };
 
+    // Open WeatherMap data from zip code
     function getWeather(zip) {
         var deferred = $q.defer();
         $http.get('/weather?zip=' + zip).then(function onSuccess(res) {
@@ -33,6 +36,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         return deferred.promise;
     };
 
+    // Google API for timezone from latitude and longitude
     function getTimezone(lat, lon) {
         var deferred = $q.defer();
         $http.get('/timezone?lat=' + lat + '&lon=' + lon).then(function onSuccess(res) {
@@ -45,6 +49,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         return deferred.promise;
     };
 
+    // Google API for elevation
     function getElevation(lat, lon) {
         var deferred = $q.defer();
         $http.get('/elevation?lat=' + lat + '&lon=' + lon).then(function onSuccess(res) {
@@ -58,6 +63,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         return deferred.promise;
     };
 
+    // Show message for invalid zip code
     function showInvalid(ev) {
         $mdDialog.show(
             $mdDialog.alert()
@@ -71,6 +77,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         );
     };
 
+    // Show message for no location found
     function showNoLocation(ev) {
         $mdDialog.show(
             $mdDialog.alert()
@@ -84,6 +91,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         );
     };
 
+    // Get location using location services
     vm.getLocation = function () {
         vm.loading = true;
         vm.hasWeather = false;
@@ -108,6 +116,7 @@ weatherController.controller('weatherController', function ($scope, $http, $q, $
         });
     }
 
+    // Make all them calls
     vm.getItAll = function (zip) {
         vm.loading = true;
         vm.hasWeather = false;
